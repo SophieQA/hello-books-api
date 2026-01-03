@@ -63,3 +63,19 @@ def create_book():
         "title": new_book.title,
         "description": new_book.description
     }, 201
+
+@books_bp.put("/<book_id>")
+def update_book(book_id):
+    book = validate_book(book_id)
+    request_body = request.get_json()
+
+    book.title = request_body["title"]
+    book.description = request_body["description"]
+
+    db.session.commit()
+
+    return {
+        "id": book.id,
+        "title": book.title,
+        "description": book.description
+    }
