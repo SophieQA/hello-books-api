@@ -74,11 +74,7 @@ def update_book(book_id):
 
     db.session.commit()
 
-    return {
-        "id": book.id,
-        "title": book.title,
-        "description": book.description
-    }
+    return Response(status=204, mimetype="application/json")
 
 @books_bp.delete("/<book_id>")
 def delete_book(book_id):
