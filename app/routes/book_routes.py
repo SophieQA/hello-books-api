@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, make_response, request
+from flask import Blueprint, Response, abort, make_response, request
 from app.models.book import Book
 from app.db import db
 
@@ -79,3 +79,12 @@ def update_book(book_id):
         "title": book.title,
         "description": book.description
     }
+
+@books_bp.delete("/<book_id>")
+def delete_book(book_id):
+    book = validate_book(book_id)
+
+    db.session.delete(book)
+    db.session.commit()
+
+    return Response(status=204, mimetype="application/json")
