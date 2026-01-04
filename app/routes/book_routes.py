@@ -6,6 +6,7 @@ books_bp = Blueprint("books_bp", __name__, url_prefix="/books")
 
 @books_bp.get("")
 def get_all_books():
+    # return make_response("I'm a teapot!", 418)
     query = db.select(Book)
 
     title_param = request.args.get("title")
